@@ -367,10 +367,8 @@ class MRMR(BaseSelector):
                 remaining.remove(feature)
 
                 relevance = np.delete(relevance, n)
-                if i == 0:
-                    redundance = np.delete(redundance, n)
-                else:
-                    redundance = np.delete(redundance, n, axis=1)
+                redundance = np.delete(redundance, n, axis=1) if redundance.ndim > 1 else np.delete(redundance, n)
+
 
                 new_redundance = self._calculate_redundance(X[remaining], X[feature])
                 redundance = np.vstack([redundance, new_redundance])
